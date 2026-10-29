@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Equações do 2º Grau — Bhaskara & Plano Cartesiano</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="brand">
+        <span class="brand-badge">f(x) = ax² + bx + c</span>
+        <div>
+          <h1>Resolvedor de Equações do 2º Grau</h1>
+          <p class="subtitle">Fórmula de Bhaskara Passo a Passo &bull; Análise de Delta (Δ) &bull; Projeção no Plano Cartesiano</p>
+        </div>
+      </div>
+      <div class="tech-pills">
+        <a href="/manual.html" target="_blank" rel="noopener noreferrer" class="pill pill-link" title="Visualização rápida do Manual em HTML">📘 Manual Rápido (HTML)</a>
+        <a href="/Manual_Resolvedor_Equacoes_2o_Grau.pdf" target="_blank" rel="noopener noreferrer" class="pill pill-link" title="Baixar ou visualizar o Manual em PDF">📄 Manual (PDF)</a>
+        <span class="pill">OpenAPI 3.0</span>
+        <span class="pill">Java 21 &bull; Spring Boot 4</span>
+        <span class="pill">Node.js 26</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <!-- Card de Entrada da Equação -->
+    <section class="card input-section" aria-label="Entrada da Equação">
+      <form id="equation-form" class="equation-form" novalidate>
+        <label for="equation-input" class="input-label">
+          Digite a equação do 2º grau:
+        </label>
+        <div class="input-row">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="equation-input"
+              name="equation"
+              placeholder="Ex: x^2 - 5x + 6 = 0"
+              value="x^2 - 5x + 6 = 0"
+              autocomplete="off"
+              required
+            />
+            <button type="button" id="btn-insert-sq" class="btn-helper" title="Inserir x²">x²</button>
+          </div>
+          <button type="submit" id="btn-calculate" class="btn-primary">
+            <span>Calcular Equação</span>
+          </button>
+        </div>
+
+        <div class="examples-bar">
+          <span class="examples-label">Exemplos rápidos:</span>
+          <button type="button" class="chip-example" data-eq="x^2 - 5x + 6 = 0">
+            x² - 5x + 6 = 0 <small>(Δ &gt; 0)</small>
+          </button>
+          <button type="button" class="chip-example" data-eq="x^2 - 4x + 4 = 0">
+            x² - 4x + 4 = 0 <small>(Δ = 0)</small>
+          </button>
+          <button type="button" class="chip-example" data-eq="x^2 + 2x + 5 = 0">
+            x² + 2x + 5 = 0 <small>(Δ &lt; 0)</small>
+          </button>
+          <button type="button" class="chip-example" data-eq="-x^2 + 2x + 3 = 0">
+            -x² + 2x + 3 = 0 <small>(a &lt; 0)</small>
+          </button>
+          <button type="button" class="chip-example" data-eq="2x^2 - 8 = 0">
+            2x² - 8 = 0 <small>(Incompleta)</small>
+          </button>
+        </div>
+      </form>
+
+      <!-- Alerta de Erro -->
+      <div id="error-banner" class="error-banner hidden" role="alert">
+        <div class="error-title" id="error-message">Erro ao interpretar equação</div>
+        <div class="error-details" id="error-details"></div>
+      </div>
+    </section>
+
+    <!-- Seção de Resultados -->
+    <div id="results-wrapper" class="results-wrapper">
+      <!-- Resumo: Delta, Raízes Reais e Coeficientes -->
+      <section class="summary-grid" aria-label="Resumo dos Resultados">
+        <div class="card metric-card">
+          <span class="metric-label">Equação na Forma Reduzida</span>
+          <strong class="metric-value mono" id="res-normalized">x² - 5x + 6 = 0</strong>
+          <span class="metric-sub" id="res-coeffs">a = 1 &bull; b = -5 &bull; c = 6</span>
+        </div>
+
+        <div class="card metric-card highlight-delta">
+          <span class="metric-label">Discriminante (Delta)</span>
+          <strong class="metric-value mono" id="res-delta">Δ = 1</strong>
+          <span class="status-badge" id="res-roots-badge">Possui 2 raízes reais</span>
+        </div>
+
+        <div class="card metric-card highlight-roots">
+          <span class="metric-label">Raízes Reais (Solução)</span>
+          <div class="roots-values" id="res-roots-values">
+            <span class="root-pill">x₁ = 2</span>
+            <span class="root-pill">x₂ = 3</span>
+          </div>
+          <span class="metric-sub" id="res-status-msg">Δ &gt; 0: A equação possui duas raízes reais e distintas.</span>
+        </div>
+
+        <div class="card metric-card">
+          <span class="metric-label">Vértice da Parábola &amp; Eixo Y</span>
+          <strong class="metric-value mono" id="res-vertex">V(2.5, -0.25)</strong>
+          <span class="metric-sub" id="res-y-intercept">Interseção Eixo Y: (0, 6)</span>
+        </div>
+      </section>
+
+      <!-- Layout Principal: Passo a Passo (Bhaskara) + Plano Cartesiano -->
+      <div class="workspace-grid">
+        <!-- Coluna 1: Passo a Passo -->
+        <section class="card steps-card" aria-label="Passo a Passo da Resolução">
+          <div class="card-header">
+            <h2>1. Passo a Passo — Fórmula de Bhaskara</h2>
+            <span class="formula-tag">x = (-b ± √Δ) / 2a</span>
+          </div>
+          <div id="steps-container" class="steps-timeline">
+            <!-- Preenchido via JS -->
+          </div>
+        </section>
+
+        <!-- Coluna 2: Plano Cartesiano -->
+        <section class="card graph-card" aria-label="Gráfico no Plano Cartesiano">
+          <div class="card-header">
+            <div>
+              <h2>2. Projeção no Plano Cartesiano</h2>
+              <p class="card-subtitle">Parábola correspondente à função quadrática com raízes reais destacadas</p>
+            </div>
+            <div class="graph-controls">
+              <button type="button" id="btn-zoom-in" class="btn-icon" title="Aproximar (Zoom +)">+</button>
+              <button type="button" id="btn-zoom-out" class="btn-icon" title="Afastar (Zoom -)">&minus;</button>
+              <button type="button" id="btn-zoom-reset" class="btn-icon btn-reset" title="Centralizar Gráfico">Resetar</button>
+            </div>
+          </div>
+
+          <div class="canvas-wrapper">
+            <canvas id="cartesian-canvas" width="680" height="480"></canvas>
+            <div id="canvas-tooltip" class="canvas-tooltip hidden"></div>
+          </div>
+
+          <div class="graph-legend">
+            <div class="legend-item">
+              <span class="legend-dot parabola-line"></span>
+              <span>Parábola f(x)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot root-point"></span>
+              <span>Raízes Reais (x₁, x₂) no Eixo X</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot vertex-point"></span>
+              <span>Vértice V(xᵥ, yᵥ)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot y-point"></span>
+              <span>Interseção Eixo Y (0, c)</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <span>Padrão OpenAPI 3.0.3 &bull; Backend Java 21 / Spring Boot 4 &bull; Frontend Node.js 26</span>
+      <div style="display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;">
+        <a href="/manual.html" target="_blank" rel="noopener noreferrer" class="footer-link">Manual Rápido (HTML)</a>
+        <a href="/Manual_Resolvedor_Equacoes_2o_Grau.pdf" target="_blank" rel="noopener noreferrer" class="footer-link">Baixar Manual (PDF)</a>
+        <a href="/openapi.yaml" target="_blank" rel="noopener noreferrer" class="footer-link">Visualizar Contrato openapi.yaml</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+openapi: 3.0.3
+info:
+  title: API Resolvedor de Equações do 2º Grau
+  description: >-
+    Especificação OpenAPI (API-First) para resolução de equações do segundo grau (ax² + bx + c = 0),
+    fornecendo passo a passo pela Fórmula de Bhaskara, discriminante (Delta), raízes reais,
+    vértice da parábola e pontos para projeção no plano cartesiano.
+  version: 1.0.0
+  contact:
+    name: Squad IA - LABs
+servers:
+  - url: http://localhost:8080
+    description: Servidor Backend Local (Spring Boot)
+paths:
+  /api/v1/equations/solve:
+    post:
+      tags:
+        - Equations
+      summary: Resolve uma equação de 2º grau e gera dados para o plano cartesiano
+      operationId: solveEquation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquationRequest'
+      responses:
+        '200':
+          description: Equação resolvida com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquationResponse'
+        '400':
+          description: Equação inválida ou não é do segundo grau
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    EquationRequest:
+      type: object
+      required:
+        - equation
+      properties:
+        equation:
+          type: string
+          description: Expressão da equação do 2º grau digitada pelo usuário
+          example: "x^2 - 5x + 6 = 0"
+
+    EquationResponse:
+      type: object
+      required:
+        - inputEquation
+        - normalizedEquation
+        - coefficients
+        - delta
+        - hasRealRoots
+        - rootCount
+        - rootsStatusMessage
+        - roots
+        - vertex
+        - steps
+        - graphData
+      properties:
+        inputEquation:
+          type: string
+          example: "x^2 - 5x + 6 = 0"
+        normalizedEquation:
+          type: string
+          example: "x² - 5x + 6 = 0"
+        coefficients:
+          $ref: '#/components/schemas/Coefficients'
+        delta:
+          type: number
+          format: double
+          example: 1.0
+        hasRealRoots:
+          type: boolean
+          example: true
+        rootCount:
+          type: integer
+          example: 2
+        rootsStatusMessage:
+          type: string
+          example: "Δ > 0: A equação possui duas raízes reais e distintas."
+        roots:
+          $ref: '#/components/schemas/Roots'
+        vertex:
+          $ref: '#/components/schemas/Point2D'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolutionStep'
+        graphData:
+          $ref: '#/components/schemas/GraphData'
+
+    Coefficients:
+      type: object
+      required:
+        - a
+        - b
+        - c
+      properties:
+        a:
+          type: number
+          format: double
+          example: 1.0
+        b:
+          type: number
+          format: double
+          example: -5.0
+        c:
+          type: number
+          format: double
+          example: 6.0
+
+    Roots:
+      type: object
+      properties:
+        x1:
+          type: number
+          format: double
+          nullable: true
+          example: 2.0
+        x2:
+          type: number
+          format: double
+          nullable: true
+          example: 3.0
+
+    Point2D:
+      type: object
+      required:
+        - x
+        - y
+      properties:
+        x:
+          type: number
+          format: double
+          example: 2.5
+        y:
+          type: number
+          format: double
+          example: -0.25
+
+    ResolutionStep:
+      type: object
+      required:
+        - stepNumber
+        - title
+        - formula
+        - calculation
+        - explanation
+      properties:
+        stepNumber:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Identificação dos Coeficientes"
+        formula:
+          type: string
+          example: "ax² + bx + c = 0"
+        calculation:
+          type: string
+          example: "a = 1, b = -5, c = 6"
+        explanation:
+          type: string
+          example: "Organizamos a equação na forma reduzida para extrair os coeficientes a, b e c."
+
+    GraphData:
+      type: object
+      required:
+        - minX
+        - maxX
+        - minY
+        - maxY
+        - yIntercept
+        - points
+      properties:
+        minX:
+          type: number
+          format: double
+          example: -2.0
+        maxX:
+          type: number
+          format: double
+          example: 7.0
+        minY:
+          type: number
+          format: double
+          example: -2.0
+        maxY:
+          type: number
+          format: double
+          example: 12.0
+        yIntercept:
+          $ref: '#/components/schemas/Point2D'
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/Point2D'
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: "INVALID_EQUATION"
+        message:
+          type: string
+          example: "O coeficiente 'a' não pode ser zero em uma equação do 2º grau."
+        details:
+          type: string
+          example: "Verifique se a equação possui o termo com x² (ex: x^2 - 5x + 6 = 0)."

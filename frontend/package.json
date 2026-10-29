@@ -1,0 +1,21 @@
+{
+  "name": "equacoes-2o-grau-frontend",
+  "version": "1.0.0",
+  "description": "Frontend em Node.js 26 para resolução de equações do 2º grau com Fórmula de Bhaskara e Plano Cartesiano interativo",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.0.0 <=26.x"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/frontend.test.js"
+  },
+  "keywords": [
+    "bhaskara",
+    "equacao-segundo-grau",
+    "plano-cartesiano",
+    "openapi",
+    "nodejs-26"
+  ],
+  "license": "MIT"
+}
