@@ -26,8 +26,73 @@
   const btnZoomOut = document.getElementById('btn-zoom-out');
   const btnZoomReset = document.getElementById('btn-zoom-reset');
 
+  // Seletor de Tema (Modo Claro / Modo Escuro)
+  const btnThemeToggle = document.getElementById('btn-theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  const themeLabel = document.getElementById('theme-label');
+  const THEME_STORAGE_KEY = 'equacoes_theme';
+
   let currentData = null;
   let zoomFactor = 1.0;
+
+  function getActiveTheme() {
+    const attr = document.documentElement.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    try {
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch (_) {}
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    }
+    return 'dark';
+  }
+
+  function applyTheme(theme, persist = false) {
+    const normalized = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', normalized);
+    if (persist) {
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, normalized);
+      } catch (_) {}
+    }
+    if (btnThemeToggle) {
+      const isLight = normalized === 'light';
+      btnThemeToggle.setAttribute('aria-pressed', String(isLight));
+      btnThemeToggle.setAttribute(
+        'aria-label',
+        isLight ? 'Alternar para modo escuro' : 'Alternar para modo claro'
+      );
+      if (themeIcon) themeIcon.textContent = isLight ? '🌙' : '☀️';
+      if (themeLabel) themeLabel.textContent = isLight ? 'Modo Escuro' : 'Modo Claro';
+    }
+    if (currentData) {
+      drawCartesianPlane(currentData);
+    }
+  }
+
+  if (btnThemeToggle) {
+    btnThemeToggle.addEventListener('click', () => {
+      const nextTheme = getActiveTheme() === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme, true);
+    });
+  }
+
+  if (window.matchMedia) {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    const handleSystemThemeChange = (e) => {
+      try {
+        if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+          applyTheme(e.matches ? 'light' : 'dark', false);
+        }
+      } catch (_) {}
+    };
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleSystemThemeChange);
+    }
+  }
+
+  applyTheme(getActiveTheme(), false);
 
   function fmt(num) {
     if (num === null || num === undefined || Number.isNaN(Number(num))) return '—';
@@ -246,7 +311,50 @@
     return mag;
   }
 
+  function getCanvasThemePalette() {
+    const isLight = getActiveTheme() === 'light';
+    if (isLight) {
+      return {
+        bg: '#f8fafc',
+        grid: 'rgba(71, 85, 105, 0.14)',
+        axis: '#475569',
+        axisLabel: '#334155',
+        axisTitle: '#0f172a',
+        frameBorder: '#cbd5e1',
+        parabola: '#0284c7',
+        symmetryLine: 'rgba(217, 119, 6, 0.45)',
+        yIntercept: '#7c3aed',
+        vertex: '#d97706',
+        pointStroke: '#ffffff',
+        rootHalo: 'rgba(5, 150, 105, 0.22)',
+        rootFill: '#059669',
+        rootBoxBg: 'rgba(209, 250, 229, 0.96)',
+        rootBoxBorder: '#059669',
+        rootBoxText: '#065f46'
+      };
+    }
+    return {
+      bg: '#0b1120',
+      grid: 'rgba(148, 163, 184, 0.12)',
+      axis: '#64748b',
+      axisLabel: '#94a3b8',
+      axisTitle: '#e2e8f0',
+      frameBorder: '#334155',
+      parabola: '#38bdf8',
+      symmetryLine: 'rgba(245, 158, 11, 0.35)',
+      yIntercept: '#a855f7',
+      vertex: '#f59e0b',
+      pointStroke: '#0b1120',
+      rootHalo: 'rgba(16, 185, 129, 0.25)',
+      rootFill: '#10b981',
+      rootBoxBg: 'rgba(6, 78, 59, 0.92)',
+      rootBoxBorder: '#10b981',
+      rootBoxText: '#6ee7b7'
+    };
+  }
+
   function drawCartesianPlane(data) {
+    const palette = getCanvasThemePalette();
     const width = canvas.width;
     const height = canvas.height;
     const padding = 48;
@@ -261,7 +369,7 @@
 
     // Fundo
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = '#0b1120';
+    ctx.fillStyle = palette.bg;
     ctx.fillRect(0, 0, width, height);
 
     // Recorte da área de plotagem
@@ -275,8 +383,8 @@
     const stepY = chooseNiceStep(maxY - minY);
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgba(148, 163, 184, 0.12)';
-    ctx.fillStyle = '#64748b';
+    ctx.strokeStyle = palette.grid;
+    ctx.fillStyle = palette.axis;
     ctx.font = '11px Inter, sans-serif';
 
     const startGridX = Math.ceil(minX / stepX) * stepX;
@@ -301,7 +409,7 @@
     const axisX_Y = toCanvasY(0);
     const axisY_X = toCanvasX(0);
 
-    ctx.strokeStyle = '#64748b';
+    ctx.strokeStyle = palette.axis;
     ctx.lineWidth = 1.8;
 
     // Eixo X
@@ -321,7 +429,7 @@
     }
 
     // Rótulos numéricos nos eixos
-    ctx.fillStyle = '#94a3b8';
+    ctx.fillStyle = palette.axisLabel;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     const labelYPos = Math.min(Math.max(axisX_Y + 6, padding + 4), height - padding - 16);
@@ -342,7 +450,7 @@
 
     // Curva da Parábola f(x) = ax² + bx + c
     const { a, b, c } = data.coefficients;
-    ctx.strokeStyle = '#38bdf8';
+    ctx.strokeStyle = palette.parabola;
     ctx.lineWidth = 3;
     ctx.beginPath();
 
@@ -361,7 +469,7 @@
     const vxCanvas = toCanvasX(data.vertex.x);
     ctx.save();
     ctx.setLineDash([5, 5]);
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
+    ctx.strokeStyle = palette.symmetryLine;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(vxCanvas, padding);
@@ -375,10 +483,11 @@
       drawPointWithLabel(
         toCanvasX(yInt.x),
         toCanvasY(yInt.y),
-        '#a855f7',
+        palette.yIntercept,
         `(0, ${fmt(yInt.y)})`,
         'right',
-        -10
+        -10,
+        palette
       );
     }
 
@@ -386,10 +495,11 @@
     drawPointWithLabel(
       toCanvasX(data.vertex.x),
       toCanvasY(data.vertex.y),
-      '#f59e0b',
+      palette.vertex,
       `V(${fmt(data.vertex.x)}, ${fmt(data.vertex.y)})`,
       'center',
-      a > 0 ? 18 : -16
+      a > 0 ? 18 : -16,
+      palette
     );
 
     // Destaque Especial para as Raízes Reais no Eixo X
@@ -397,24 +507,24 @@
       if (data.rootCount === 1) {
         const rx = toCanvasX(data.roots.x1);
         const ry = toCanvasY(0);
-        drawRootHighlight(rx, ry, `Raiz x = ${fmt(data.roots.x1)}`, 'center', -18);
+        drawRootHighlight(rx, ry, `Raiz x = ${fmt(data.roots.x1)}`, 'center', -18, palette);
       } else {
         const rx1 = toCanvasX(data.roots.x1);
         const rx2 = toCanvasX(data.roots.x2);
         const ry = toCanvasY(0);
-        drawRootHighlight(rx1, ry, `x₁ (${fmt(data.roots.x1)}, 0)`, 'left', -16);
-        drawRootHighlight(rx2, ry, `x₂ (${fmt(data.roots.x2)}, 0)`, 'right', -16);
+        drawRootHighlight(rx1, ry, `x₁ (${fmt(data.roots.x1)}, 0)`, 'left', -16, palette);
+        drawRootHighlight(rx2, ry, `x₂ (${fmt(data.roots.x2)}, 0)`, 'right', -16, palette);
       }
     }
 
     ctx.restore();
 
     // Moldura e títulos dos eixos X e Y
-    ctx.strokeStyle = '#334155';
+    ctx.strokeStyle = palette.frameBorder;
     ctx.lineWidth = 1.5;
     ctx.strokeRect(padding, padding, plotW, plotH);
 
-    ctx.fillStyle = '#e2e8f0';
+    ctx.fillStyle = palette.axisTitle;
     ctx.font = 'bold 12px Inter, sans-serif';
     ctx.textAlign = 'right';
     ctx.fillText('Eixo X', width - padding - 6, Math.min(Math.max(axisX_Y - 10, padding + 14), height - padding - 8));
@@ -422,14 +532,14 @@
     ctx.fillText('Eixo Y', Math.min(Math.max(axisY_X + 8, padding + 8), width - padding - 50), padding + 14);
   }
 
-  function drawPointWithLabel(cx, cy, color, label, align = 'center', offsetY = -12) {
+  function drawPointWithLabel(cx, cy, color, label, align = 'center', offsetY = -12, palette = getCanvasThemePalette()) {
     ctx.save();
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(cx, cy, 5.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#0b1120';
+    ctx.strokeStyle = palette.pointStroke;
     ctx.stroke();
 
     ctx.font = 'bold 11.5px "JetBrains Mono", monospace';
@@ -441,17 +551,17 @@
     ctx.restore();
   }
 
-  function drawRootHighlight(cx, cy, label, align, offsetY) {
+  function drawRootHighlight(cx, cy, label, align, offsetY, palette = getCanvasThemePalette()) {
     ctx.save();
     // Halo luminoso para destacar a raiz real
     ctx.beginPath();
     ctx.arc(cx, cy, 11, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(16, 185, 129, 0.25)';
+    ctx.fillStyle = palette.rootHalo;
     ctx.fill();
 
     ctx.beginPath();
     ctx.arc(cx, cy, 6.5, 0, Math.PI * 2);
-    ctx.fillStyle = '#10b981';
+    ctx.fillStyle = palette.rootFill;
     ctx.fill();
     ctx.lineWidth = 2;
     ctx.strokeStyle = '#ffffff';
@@ -465,15 +575,15 @@
     if (align === 'right') boxX = cx + 8;
     const boxY = cy + offsetY - 10;
 
-    ctx.fillStyle = 'rgba(6, 78, 59, 0.92)';
-    ctx.strokeStyle = '#10b981';
+    ctx.fillStyle = palette.rootBoxBg;
+    ctx.strokeStyle = palette.rootBoxBorder;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.roundRect(boxX, boxY, textWidth + 12, 20, 4);
     ctx.fill();
     ctx.stroke();
 
-    ctx.fillStyle = '#6ee7b7';
+    ctx.fillStyle = palette.rootBoxText;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.fillText(label, boxX + 6, boxY + 10);

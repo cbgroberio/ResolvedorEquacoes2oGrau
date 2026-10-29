@@ -1,23 +1,99 @@
 :root {
+  color-scheme: dark;
   --bg-page: #0f172a;
+  --bg-header: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-footer: #0b1120;
   --bg-card: #1e293b;
   --bg-card-elevated: #263349;
+  --bg-control-hover: #334155;
   --bg-input: #0b1120;
+  --bg-canvas: #0b1120;
+  --bg-tooltip: rgba(15, 23, 42, 0.92);
+  --bg-step-formula: rgba(15, 23, 42, 0.65);
   --border-color: #334155;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
+  --text-step-title: #e2e8f0;
+  --text-step-badge: #0f172a;
+  --text-step-calc: #38bdf8;
   --accent-primary: #38bdf8;
   --accent-hover: #0ea5e9;
+  --accent-soft-bg: rgba(56, 189, 248, 0.12);
+  --accent-soft-border: rgba(56, 189, 248, 0.35);
   --root-color: #10b981;
   --vertex-color: #f59e0b;
   --y-intercept-color: #a855f7;
   --danger-color: #ef4444;
   --danger-bg: rgba(239, 68, 68, 0.14);
+  --danger-text: #fecaca;
+  --danger-subtext: #fca5a5;
+  --badge-pos-bg: rgba(16, 185, 129, 0.18);
+  --badge-pos-text: #34d399;
+  --badge-pos-border: rgba(16, 185, 129, 0.4);
+  --badge-zero-bg: rgba(245, 158, 11, 0.18);
+  --badge-zero-text: #fbbf24;
+  --badge-zero-border: rgba(245, 158, 11, 0.4);
+  --badge-neg-bg: rgba(239, 68, 68, 0.18);
+  --badge-neg-text: #f87171;
+  --badge-neg-border: rgba(239, 68, 68, 0.4);
+  --root-pill-bg: rgba(16, 185, 129, 0.16);
+  --root-pill-border: rgba(16, 185, 129, 0.45);
+  --root-pill-text: #6ee7b7;
+  --no-root-pill-bg: rgba(239, 68, 68, 0.15);
+  --no-root-pill-border: rgba(239, 68, 68, 0.4);
+  --no-root-pill-text: #fca5a5;
   --radius-md: 12px;
   --radius-sm: 8px;
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-page: #f1f5f9;
+  --bg-header: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --bg-footer: #e2e8f0;
+  --bg-card: #ffffff;
+  --bg-card-elevated: #f8fafc;
+  --bg-control-hover: #e2e8f0;
+  --bg-input: #ffffff;
+  --bg-canvas: #f8fafc;
+  --bg-tooltip: rgba(255, 255, 255, 0.96);
+  --bg-step-formula: #e0f2fe;
+  --border-color: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-step-title: #0f172a;
+  --text-step-badge: #ffffff;
+  --text-step-calc: #0369a1;
+  --accent-primary: #0284c7;
+  --accent-hover: #0369a1;
+  --accent-soft-bg: rgba(2, 132, 199, 0.1);
+  --accent-soft-border: rgba(2, 132, 199, 0.35);
+  --root-color: #059669;
+  --vertex-color: #d97706;
+  --y-intercept-color: #7c3aed;
+  --danger-color: #dc2626;
+  --danger-bg: #fef2f2;
+  --danger-text: #991b1b;
+  --danger-subtext: #b91c1c;
+  --badge-pos-bg: #d1fae5;
+  --badge-pos-text: #065f46;
+  --badge-pos-border: #6ee7b7;
+  --badge-zero-bg: #fef3c7;
+  --badge-zero-text: #92400e;
+  --badge-zero-border: #fcd34d;
+  --badge-neg-bg: #fee2e2;
+  --badge-neg-text: #991b1b;
+  --badge-neg-border: #fca5a5;
+  --root-pill-bg: #d1fae5;
+  --root-pill-border: #34d399;
+  --root-pill-text: #065f46;
+  --no-root-pill-bg: #fee2e2;
+  --no-root-pill-border: #fca5a5;
+  --no-root-pill-text: #991b1b;
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
 }
 
 * {
@@ -34,6 +110,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .container {
@@ -45,7 +122,7 @@ body {
 
 /* Header */
 .app-header {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
   padding: 1.25rem 0;
 }
@@ -65,9 +142,9 @@ body {
 }
 
 .brand-badge {
-  background: rgba(56, 189, 248, 0.15);
+  background: var(--accent-soft-bg);
   color: var(--accent-primary);
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  border: 1px solid var(--accent-soft-border);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 0.95rem;
@@ -88,8 +165,51 @@ body {
 
 .tech-pills {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+/* Seletor de Tema (Modo Claro / Modo Escuro) */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--accent-soft-border);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--accent-soft-bg);
+  border-color: var(--accent-primary);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.97);
+}
+
+.theme-toggle-btn:focus-visible,
+.btn-helper:focus-visible,
+.btn-primary:focus-visible,
+.chip-example:focus-visible,
+.btn-icon:focus-visible,
+.pill-link:focus-visible,
+.footer-link:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.theme-icon {
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .pill {
@@ -104,8 +224,8 @@ body {
 
 .pill-link {
   color: var(--accent-primary);
-  border-color: rgba(56, 189, 248, 0.4);
-  background: rgba(56, 189, 248, 0.12);
+  border-color: var(--accent-soft-border);
+  background: var(--accent-soft-bg);
   text-decoration: none;
   transition: background 0.15s, border-color 0.15s;
 }
@@ -188,7 +308,7 @@ body {
 }
 
 .btn-helper:hover {
-  background: #334155;
+  background: var(--bg-control-hover);
 }
 
 .btn-primary {
@@ -246,7 +366,7 @@ body {
 
 .chip-example:hover {
   border-color: var(--accent-primary);
-  background-color: rgba(56, 189, 248, 0.12);
+  background-color: var(--accent-soft-bg);
 }
 
 /* Error Banner */
@@ -256,7 +376,7 @@ body {
   border: 1px solid var(--danger-color);
   border-radius: var(--radius-sm);
   padding: 0.9rem 1.1rem;
-  color: #fecaca;
+  color: var(--danger-text);
 }
 
 .error-title {
@@ -267,7 +387,7 @@ body {
 .error-details {
   font-size: 0.85rem;
   margin-top: 0.25rem;
-  color: #fca5a5;
+  color: var(--danger-subtext);
 }
 
 .hidden {
@@ -326,21 +446,21 @@ body {
 }
 
 .badge-positive {
-  background: rgba(16, 185, 129, 0.18);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.4);
+  background: var(--badge-pos-bg);
+  color: var(--badge-pos-text);
+  border: 1px solid var(--badge-pos-border);
 }
 
 .badge-zero {
-  background: rgba(245, 158, 11, 0.18);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: var(--badge-zero-bg);
+  color: var(--badge-zero-text);
+  border: 1px solid var(--badge-zero-border);
 }
 
 .badge-negative {
-  background: rgba(239, 68, 68, 0.18);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: var(--badge-neg-bg);
+  color: var(--badge-neg-text);
+  border: 1px solid var(--badge-neg-border);
 }
 
 .roots-values {
@@ -351,9 +471,9 @@ body {
 }
 
 .root-pill {
-  background: rgba(16, 185, 129, 0.16);
-  border: 1px solid rgba(16, 185, 129, 0.45);
-  color: #6ee7b7;
+  background: var(--root-pill-bg);
+  border: 1px solid var(--root-pill-border);
+  color: var(--root-pill-text);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 1.05rem;
@@ -362,9 +482,9 @@ body {
 }
 
 .root-pill.no-root {
-  background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.4);
-  color: #fca5a5;
+  background: var(--no-root-pill-bg);
+  border-color: var(--no-root-pill-border);
+  color: var(--no-root-pill-text);
   font-size: 0.95rem;
 }
 
@@ -404,13 +524,13 @@ body {
 }
 
 .formula-tag {
-  background: rgba(56, 189, 248, 0.12);
+  background: var(--accent-soft-bg);
   color: var(--accent-primary);
   font-family: var(--font-mono);
   font-size: 0.82rem;
   padding: 0.3rem 0.65rem;
   border-radius: 6px;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  border: 1px solid var(--accent-soft-border);
 }
 
 /* Steps Timeline */
@@ -440,7 +560,7 @@ body {
 .step-title {
   font-weight: 700;
   font-size: 0.95rem;
-  color: #e2e8f0;
+  color: var(--text-step-title);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -448,7 +568,7 @@ body {
 
 .step-badge {
   background: var(--accent-primary);
-  color: #0f172a;
+  color: var(--text-step-badge);
   font-weight: 800;
   font-size: 0.75rem;
   width: 22px;
@@ -463,19 +583,19 @@ body {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--accent-primary);
-  background: rgba(15, 23, 42, 0.65);
+  background: var(--bg-step-formula);
   padding: 0.2rem 0.55rem;
   border-radius: 4px;
 }
 
 .step-calc {
   background-color: var(--bg-input);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 0.65rem 0.85rem;
   font-family: var(--font-mono);
   font-size: 0.9rem;
-  color: #38bdf8;
+  color: var(--text-step-calc);
   white-space: pre-line;
   margin-bottom: 0.5rem;
 }
@@ -510,7 +630,7 @@ body {
 
 .btn-icon:hover {
   border-color: var(--accent-primary);
-  background: #334155;
+  background: var(--bg-control-hover);
 }
 
 .btn-reset {
@@ -521,7 +641,7 @@ body {
 .canvas-wrapper {
   position: relative;
   width: 100%;
-  background-color: #0b1120;
+  background-color: var(--bg-canvas);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   overflow: hidden;
@@ -537,14 +657,14 @@ body {
 .canvas-tooltip {
   position: absolute;
   pointer-events: none;
-  background: rgba(15, 23, 42, 0.92);
+  background: var(--bg-tooltip);
   border: 1px solid var(--accent-primary);
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 0.78rem;
   padding: 0.35rem 0.6rem;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   transform: translate(12px, -12px);
   z-index: 10;
 }
@@ -596,7 +716,7 @@ body {
 .app-footer {
   border-top: 1px solid var(--border-color);
   padding: 1rem 0;
-  background-color: #0b1120;
+  background-color: var(--bg-footer);
   font-size: 0.82rem;
   color: var(--text-secondary);
 }

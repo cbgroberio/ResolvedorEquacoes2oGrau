@@ -69,4 +69,24 @@ console.log('Iniciando bateria de testes do Resolvedor OpenAPI (Bhaskara & Plano
   console.log('✔ Teste 5 passou: Rejeição correta quando coeficiente a = 0');
 }
 
+// Teste 6: Acessibilidade e Seletor de Modo Claro / Modo Escuro no Frontend
+{
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const publicDir = path.join(__dirname, '..', 'public');
+
+  const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(publicDir, 'styles.css'), 'utf8');
+  const js = fs.readFileSync(path.join(publicDir, 'app.js'), 'utf8');
+
+  assert.ok(html.includes('id="btn-theme-toggle"'), 'index.html deve conter o botão #btn-theme-toggle');
+  assert.ok(html.includes('aria-pressed='), 'Botão de tema deve possuir atributo aria-pressed');
+  assert.ok(html.includes('aria-label='), 'Botão de tema deve possuir atributo aria-label');
+  assert.ok(css.includes('[data-theme="light"]'), 'styles.css deve definir variáveis para [data-theme="light"]');
+  assert.ok(css.includes('.theme-toggle-btn'), 'styles.css deve estilizar .theme-toggle-btn');
+  assert.ok(js.includes('equacoes_theme'), 'app.js deve persistir o tema em localStorage (equacoes_theme)');
+  assert.ok(js.includes('getCanvasThemePalette'), 'app.js deve adaptar a paleta de cores do Canvas conforme o tema');
+  console.log('✔ Teste 6 passou: Seletor de Modo Claro e Modo Escuro configurado com atributos de acessibilidade');
+}
+
 console.log('Todos os testes passaram com sucesso!');

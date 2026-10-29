@@ -5,6 +5,8 @@ Ao clicar no botão de cálculo, a aplicação deve:
 	2 - Apresentar ao usuário o valor de delta, informar se a equação possui raízes reais e quais são as raízes.
 	3 - Projetar um plano cartesiano e apresentar ao usuário o gráfico correspondente à equação, destacando as raízes reais, se houverem.
 
+Adicionar um seletor de modo claro e escuro no frontend, para melhorar a jornada de acessibilidade do usuário
+
 A aplicação deve ser desenvolvida no padrão Open API, com backend em Java e frontend em Node.js
 	- Stack Java: Java 21, springboot 4.
 	- Stack Node.js: node 26
