@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Equações do 2º Grau — Bhaskara & Plano Cartesiano</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('equacoes_theme');
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        const theme = saved === 'light' || saved === 'dark' ? saved : (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (_) {}
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -17,6 +27,17 @@
         </div>
       </div>
       <div class="tech-pills">
+        <button
+          type="button"
+          id="btn-theme-toggle"
+          class="theme-toggle-btn"
+          aria-label="Alternar para modo claro"
+          aria-pressed="false"
+          title="Alternar entre Modo Claro e Modo Escuro"
+        >
+          <span class="theme-icon" id="theme-icon" aria-hidden="true">☀️</span>
+          <span class="theme-label" id="theme-label">Modo Claro</span>
+        </button>
         <a href="/manual.html" target="_blank" rel="noopener noreferrer" class="pill pill-link" title="Visualização rápida do Manual em HTML">📘 Manual Rápido (HTML)</a>
         <a href="/Manual_Resolvedor_Equacoes_2o_Grau.pdf" target="_blank" rel="noopener noreferrer" class="pill pill-link" title="Baixar ou visualizar o Manual em PDF">📄 Manual (PDF)</a>
         <span class="pill">OpenAPI 3.0</span>
