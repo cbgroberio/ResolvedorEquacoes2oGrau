@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manual do Usuário e Guia Pedagógico — Resolvedor de Equações do 2º Grau</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 16mm 18mm 16mm;
+    }
+
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #0284c7;
+      --accent-light: #e0f2fe;
+      --emerald: #059669;
+      --emerald-light: #d1fae5;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+      --rose: #e11d48;
+      --rose-light: #ffe4e6;
+      --purple: #7c3aed;
+      --text: #1e293b;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --bg-soft: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 10.5pt;
+      background: #ffffff;
+    }
+
+    /* Capa / Header Principal */
+    .cover-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 28px 30px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: #7dd3fc;
+      font-family: Consolas, monospace;
+      font-size: 9pt;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .cover-banner h1 {
+      font-size: 21pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .cover-banner p.subtitle {
+      font-size: 11pt;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      padding-top: 12px;
+      font-size: 8.5pt;
+      color: #e2e8f0;
+    }
+
+    .meta-item {
+      background: rgba(15, 23, 42, 0.45);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Títulos de Seção */
+    h2.section-title {
+      font-size: 14pt;
+      font-weight: 800;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-num {
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 10pt;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h3 {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-top: 12px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+
+    /* Cards e Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 10px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      break-inside: avoid;
+    }
+
+    .card-accent {
+      border-left: 4px solid var(--accent);
+    }
+
+    .card-emerald {
+      border-left: 4px solid var(--emerald);
+    }
+
+    .card-amber {
+      border-left: 4px solid var(--amber);
+    }
+
+    .card-purple {
+      border-left: 4px solid var(--purple);
+    }
+
+    .formula-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 11pt;
+      font-weight: 700;
+      text-align: center;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin: 10px 0;
+      letter-spacing: 0.03em;
+    }
+
+    /* Tabelas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px 0;
+      font-size: 9.5pt;
+      break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background: var(--bg-soft);
+    }
+
+    code {
+      font-family: Consolas, monospace;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 9.2pt;
+    }
+
+    /* Passo a passo simulado */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .step-box {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 8px 12px;
+      break-inside: avoid;
+    }
+
+    .step-box-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 3px;
+      font-size: 10pt;
+    }
+
+    .step-box-calc {
+      font-family: Consolas, monospace;
+      color: #0369a1;
+      background: #f0f9ff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 9.2pt;
+      margin: 4px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 8pt;
+      font-weight: 700;
+    }
+
+    .badge-pos { background: var(--emerald-light); color: var(--emerald); }
+    .badge-zero { background: var(--amber-light); color: var(--amber); }
+    .badge-neg { background: var(--rose-light); color: var(--rose); }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    ul.clean-list {
+      padding-left: 18px;
+      margin-bottom: 8px;
+    }
+
+    ul.clean-list li {
+      margin-bottom: 4px;
+    }
+
+    .svg-graph-card {
+      background: #0b1120;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #334155;
+    }
+
+    .svg-graph-card h4 {
+      font-size: 9.5pt;
+      color: #38bdf8;
+      margin-bottom: 4px;
+    }
+
+    .svg-graph-card p {
+      font-size: 8pt;
+      color: #cbd5e1;
+      text-align: center;
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+
+    /* Barra de navegação visível apenas na visualização rápida HTML no navegador */
+    .web-only-navbar {
+      max-width: 900px;
+      margin: 16px auto;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 18px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #334155;
+    }
+
+    .web-only-navbar a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 9.5pt;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .web-only-navbar a:hover {
+      background: rgba(56, 189, 248, 0.25);
+    }
+
+    .manual-container {
+      max-width: 900px;
+      margin: 0 auto 32px auto;
+    }
+
+    @media print {
+      .web-only-navbar {
+        display: none !important;
+      }
+      .manual-container {
+        max-width: 100%;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Ação Rápida (somente no navegador, oculta no PDF) -->
+  <nav class="web-only-navbar">
+    <span><strong>Visualização Rápida (HTML)</strong> — Manual do Resolvedor de Equações do 2º Grau</span>
+    <div style="display: flex; gap: 10px;">
+      <a href="/">← Voltar para a Calculadora</a>
+      <a href="/Manual_Resolvedor_Equacoes_2o_Grau.pdf" target="_blank" rel="noopener noreferrer">Baixar Versão em PDF</a>
+    </div>
+  </nav>
+
+  <div class="manual-container">
+
+  <!-- CAPA / CABEÇALHO -->
+  <div class="cover-banner">
+    <div class="cover-badge">f(x) = ax² + bx + c = 0 &bull; MANUAL OFICIAL DO APLICATIVO</div>
+    <h1>Resolvedor de Equações do 2º Grau</h1>
+    <p class="subtitle">Guia de Funcionamento, Operação das Funcionalidades e Contribuição Pedagógica no Ensino de Matemática</p>
+    <div class="cover-meta">
+      <span class="meta-item">Padrão Arquitetural: OpenAPI 3.0.3 (API-First)</span>
+      <span class="meta-item">Backend: Java 21 + Spring Boot 4</span>
+      <span class="meta-item">Frontend: Node.js 26 + HTML5 Canvas</span>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 1: VISÃO GERAL E COMO FUNCIONA -->
+  <h2 class="section-title">
+    <span class="section-num">1</span>
+    Como o Resolvedor Funciona
+  </h2>
+  <p>
+    O <strong>Resolvedor de Equações do 2º Grau</strong> é uma aplicação educacional e analítica projetada para interpretar expressões algébricas quadráticas digitadas livremente pelo usuário, processá-las segundo o método algébrico clássico (<strong>Fórmula de Bhaskara</strong>) e projetar instantaneamente sua representação geométrica no <strong>Plano Cartesiano</strong>.
+  </p>
+
+  <div class="formula-box">
+    Forma Geral: ax² + bx + c = 0 (com a ≠ 0) &nbsp;&nbsp;|&nbsp;&nbsp; Δ = b² - 4·a·c &nbsp;&nbsp;|&nbsp;&nbsp; x = (-b ± √Δ) / (2·a)
+  </div>
+
+  <!-- QUEBRA DE PÁGINA PARA SEÇÃO 2 -->
+  <div class="page-break"></div>
+
+  <!-- SEÇÃO 2: COMO UTILIZAR AS FUNCIONALIDADES -->
+  <h2 class="section-title">
+    <span class="section-num">2</span>
+    Como Utilizar as Funcionalidades do Aplicativo
+  </h2>
+  <p>
+    A interface foi desenhada para ser intuitiva tanto para estudantes quanto para professores em sala de aula. Abaixo está o guia completo de uso de cada componente da tela:
+  </p>
+
+  <h3>2.1 Painel de Digitação e Exemplos Rápidos</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 28%;">Recurso da Interface</th>
+        <th style="width: 37%;">Como Utilizar</th>
+        <th style="width: 35%;">Exemplos Aceitos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Campo de Digitação</strong></td>
+        <td>Digite a equação usando <code>x^2</code> ou <code>x²</code> para o termo quadrático. Espaços são opcionais e números decimais aceitam ponto ou vírgula.</td>
+        <td><code>x^2 - 5x + 6 = 0</code><br/><code>-2x² + 3x + 5 = 0</code><br/><code>1,5x^2 - 6 = 0</code></td>
+      </tr>
+      <tr>
+        <td><strong>Botão Auxiliar [x²]</strong></td>
+        <td>Clique no botão <code>x²</code> dentro da caixa de texto para inserir automaticamente o expoente ao quadrado na posição do cursor.</td>
+        <td>Converte a digitação rápida em notação matemática limpa: <code>3x² - 12 = 0</code></td>
+      </tr>
+      <tr>
+        <td><strong>Botão [Calcular Equação]</strong></td>
+        <td>Clique no botão azul ou pressione <code>Enter</code> no teclado para disparar a resolução completa e atualizar o gráfico.</td>
+        <td>Aciona o endpoint OpenAPI <code>/api/v1/equations/solve</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Chips de Exemplos Rápidos</strong></td>
+        <td>Basta clicar em qualquer um dos 5 botões de exemplo abaixo do campo para carregar casos clássicos instantaneamente.</td>
+        <td>• <code>Δ &gt; 0</code> (2 raízes)<br/>• <code>Δ = 0</code> (1 raiz dupla)<br/>• <code>Δ &lt; 0</code> (sem raiz real)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Painel de Indicadores (Cards de Diagnóstico)</h3>
+  <p>Logo após clicar em <strong>Calcular Equação</strong>, quatro cartões superiores sintetizam os resultados fundamentais:</p>
+  <div class="grid-2">
+    <div class="card card-accent">
+      <strong>1. Equação na Forma Reduzida</strong>
+      <p style="font-size: 9pt; margin-top: 4px;">
+        Exibe a equação organizada no padrão <code>ax² + bx + c = 0</code> e destaca explicitamente os valores numéricos de <code>a</code>, <code>b</code> e <code>c</code>.
+      </p>
+    </div>
+    <div class="card card-amber">
+      <strong>2. Discriminante (Delta - Δ)</strong>
+      <p style="font-size: 9pt; margin-top: 4px;">
+        Mostra o valor exato de <code>Δ</code> acompanhado de um selo visual colorido (verde para <code>Δ &gt; 0</code>, âmbar para <code>Δ = 0</code> e vermelho para <code>Δ &lt; 0</code>).
+      </p>
+    </div>
+    <div class="card card-emerald">
+      <strong>3. Raízes Reais (Conjunto Solução)</strong>
+      <p style="font-size: 9pt; margin-top: 4px;">
+        Informa claramente se a equação possui raízes reais e exibe os valores de <code>x₁</code> e <code>x₂</code> (ou <code>S = ∅</code> quando não existem raízes em ℝ).
+      </p>
+    </div>
+    <div class="card card-purple">
+      <strong>4. Vértice &amp; Interseção com Eixo Y</strong>
+      <p style="font-size: 9pt; margin-top: 4px;">
+        Apresenta o ponto extremo da parábola <code>V(xᵥ, yᵥ)</code> e o ponto <code>(0, c)</code> onde o gráfico corta o eixo vertical Y.
+      </p>
+    </div>
+  </div>
+
+  <h3>2.3 Linha do Tempo Passo a Passo (Fórmula de Bhaskara)</h3>
+  <p>
+    Na coluna esquerda inferior, o aplicativo decompõe a resolução em <strong>5 passos pedagógicos numerados</strong>:
+  </p>
+  <ul class="clean-list" style="font-size: 9.5pt;">
+    <li><strong>Passo 1 (Coeficientes):</strong> Mostra como igualar a equação a zero e identificar <code>a</code>, <code>b</code> e <code>c</code> (evitando erros de sinal).</li>
+    <li><strong>Passo 2 (Cálculo de Δ):</strong> Exibe a fórmula <code>Δ = b² - 4·a·c</code> com a substituição entre parênteses dos números negativos.</li>
+    <li><strong>Passo 3 (Análise de Δ):</strong> Explica o significado matemático do sinal de Δ encontrado e calcula <code>√Δ</code>.</li>
+    <li><strong>Passo 4 (Fórmula de Bhaskara):</strong> Desenvolve separadamente os ramos <code>x₁ = (-b - √Δ)/2a</code> e <code>x₂ = (-b + √Δ)/2a</code>.</li>
+    <li><strong>Passo 5 (Vértice e Concavidade):</strong> Calcula <code>xᵥ = -b/2a</code> e <code>yᵥ = -Δ/4a</code>, relacionando a álgebra ao gráfico.</li>
+  </ul>
+
+  <h3>2.4 Controles do Plano Cartesiano Interativo</h3>
+  <ul class="clean-list" style="font-size: 9.5pt;">
+    <li><strong>Destaque das Raízes Reais:</strong> As raízes reais <code>x₁</code> e <code>x₂</code> são marcadas com círculos verdes brilhantes exatamente sobre o <strong>Eixo X</strong>.</li>
+    <li><strong>Botões de Zoom (<code>+</code>, <code>-</code> e <code>Resetar</code>):</strong> Permitem aproximar a visualização perto do vértice ou afastar para enxergar o comportamento global da parábola.</li>
+    <li><strong>Inspeção com o Mouse (Tooltip):</strong> Ao mover o cursor sobre o plano cartesiano, uma caixa flutuante exibe em tempo real o par ordenado <code>(x, f(x))</code> correspondente à curva.</li>
+  </ul>
+
+  <!-- QUEBRA DE PÁGINA PARA SEÇÃO 3 -->
+  <div class="page-break"></div>
+
+  <!-- SEÇÃO 3: CONTRIBUIÇÃO PEDAGÓGICA -->
+  <h2 class="section-title">
+    <span class="section-num">3</span>
+    Contribuição para o Reforço no Aprendizado de Equações do 2º Grau
+  </h2>
+  <p>
+    Um dos maiores desafios no ensino de Matemática no Ensino Fundamental II e Ensino Médio é a desconexão entre a <strong>manipulação algébrica mecânica</strong> (decorar a Fórmula de Bhaskara) e a <strong>compreensão geométrica</strong> do que significa uma raiz ou o discriminante Δ. O aplicativo atua diretamente na superação dessas dificuldades pedagógicas.
+  </p>
+
+  <h3>3.1 Conexão Visual entre o Sinal de Delta (Δ) e o Plano Cartesiano</h3>
+  <p>
+    Por meio da visualização simultânea do cálculo e do gráfico, o estudante compreende <em>por que</em> uma equação tem duas, uma ou nenhuma raiz real:
+  </p>
+
+  <!-- Ilustração Vetorial dos 3 Casos de Delta -->
+  <div class="grid-3">
+    <!-- Caso 1: Delta > 0 -->
+    <div class="svg-graph-card">
+      <h4>Caso 1: Δ &gt; 0 (Duas Raízes)</h4>
+      <svg viewBox="0 0 200 135" width="100%" height="115">
+        <!-- Eixos X (y=75) e Y (x=42) -->
+        <line x1="15" y1="75" x2="188" y2="75" stroke="#64748b" stroke-width="1.5" />
+        <line x1="42" y1="12" x2="42" y2="126" stroke="#64748b" stroke-width="1.5" />
+        <!-- Linha de simetria tracejada -->
+        <line x1="115" y1="15" x2="115" y2="124" stroke="#f59e0b" stroke-width="0.9" stroke-dasharray="3,3" opacity="0.45" />
+        <!-- Parábola matematicamente exata: P0=(55,15), Pc=(115,207), P2=(175,15) -> Vértice exato em (115,111) e raízes exatas em y=75: x1=78.3 e x2=151.7 -->
+        <path d="M 55 15 Q 115 207 175 15" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+        <!-- Raízes Verdes exatamente na interseção da curva com o Eixo X (y=75) -->
+        <circle cx="78.3" cy="75" r="5" fill="#10b981" stroke="#ffffff" stroke-width="1.5" />
+        <circle cx="151.7" cy="75" r="5" fill="#10b981" stroke="#ffffff" stroke-width="1.5" />
+        <!-- Vértice exatamente no ponto mínimo da curva (115, 111) -->
+        <circle cx="115" cy="111" r="4.5" fill="#f59e0b" stroke="#0b1120" stroke-width="1.2" />
+        <!-- Rótulos -->
+        <text x="63" y="67" fill="#6ee7b7" font-size="9" font-weight="bold" font-family="monospace">x₁</text>
+        <text x="156" y="67" fill="#6ee7b7" font-size="9" font-weight="bold" font-family="monospace">x₂</text>
+        <text x="122" y="115" fill="#fbbf24" font-size="8.5" font-weight="bold" font-family="monospace">V</text>
+      </svg>
+      <p><span class="badge badge-pos">Δ &gt; 0</span> A parábola cruza o Eixo X em <strong>dois pontos distintos</strong> (x₁ e x₂).</p>
+    </div>
+
+    <!-- Caso 2: Delta = 0 -->
+    <div class="svg-graph-card">
+      <h4>Caso 2: Δ = 0 (Raiz Dupla)</h4>
+      <svg viewBox="0 0 200 135" width="100%" height="115">
+        <!-- Eixos -->
+        <line x1="15" y1="95" x2="188" y2="95" stroke="#64748b" stroke-width="1.5" />
+        <line x1="42" y1="12" x2="42" y2="126" stroke="#64748b" stroke-width="1.5" />
+        <line x1="115" y1="15" x2="115" y2="124" stroke="#f59e0b" stroke-width="0.9" stroke-dasharray="3,3" opacity="0.45" />
+        <!-- Parábola tangenciando o eixo X exatamente em (115, 95) -->
+        <path d="M 55 20 Q 115 170 175 20" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+        <!-- Raiz Única = Vértice -->
+        <circle cx="115" cy="95" r="5.5" fill="#10b981" stroke="#f59e0b" stroke-width="2" />
+        <text x="84" y="114" fill="#fbbf24" font-size="8.5" font-weight="bold" font-family="monospace">x₁ = x₂ = V</text>
+      </svg>
+      <p><span class="badge badge-zero">Δ = 0</span> O vértice da parábola <strong>tangencia</strong> o Eixo X em um único ponto.</p>
+    </div>
+
+    <!-- Caso 3: Delta < 0 -->
+    <div class="svg-graph-card">
+      <h4>Caso 3: Δ &lt; 0 (Sem Raiz Real)</h4>
+      <svg viewBox="0 0 200 135" width="100%" height="115">
+        <!-- Eixos -->
+        <line x1="15" y1="105" x2="188" y2="105" stroke="#64748b" stroke-width="1.5" />
+        <line x1="42" y1="12" x2="42" y2="126" stroke="#64748b" stroke-width="1.5" />
+        <line x1="115" y1="15" x2="115" y2="124" stroke="#f59e0b" stroke-width="0.9" stroke-dasharray="3,3" opacity="0.45" />
+        <!-- Parábola acima do eixo X com vértice exato em (115, 76) -->
+        <path d="M 55 18 Q 115 134 175 18" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+        <!-- Vértice -->
+        <circle cx="115" cy="76" r="4.5" fill="#f59e0b" stroke="#0b1120" stroke-width="1.2" />
+        <text x="78" y="96" fill="#fca5a5" font-size="8.5" font-family="monospace">Não toca Eixo X</text>
+      </svg>
+      <p><span class="badge badge-neg">Δ &lt; 0</span> A parábola <strong>não intercepta</strong> o Eixo X (sem solução real).</p>
+    </div>
+  </div>
+
+  <h3>3.2 Principais Benefícios Didáticos para o Estudante</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 26%;">Competência Matemática</th>
+        <th style="width: 37%;">Dificuldade Comum do Aluno</th>
+        <th style="width: 37%;">Como o Aplicativo Reforça o Aprendizado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Identificação de Coeficientes e Sinais</strong></td>
+        <td>Esquecer o sinal negativo de <code>b</code> ou <code>c</code> ou confundir equações incompletas (quando <code>b = 0</code> ou <code>c = 0</code>).</td>
+        <td>O <strong>Passo 1</strong> normaliza a equação e explicita <code>a</code>, <code>b</code> e <code>c</code> com seus sinais, mostrando os parênteses no cálculo de <code>(-b)²</code> e <code>-4·a·c</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Interpretação das Raízes como Zeros da Função</strong></td>
+        <td>Calcular <code>x₁ = 2</code> e <code>x₂ = 3</code> sem saber o que esses números representam no gráfico.</td>
+        <td>O gráfico destaca visualmente os pares ordenados <code>(2, 0)</code> e <code>(3, 0)</code> sobre o Eixo X, consolidando o conceito de <em>zero da função</em> (onde <code>f(x) = 0</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Papel da Concavidade e do Termo Independente</strong></td>
+        <td>Não associar o sinal do coeficiente <code>a</code> com o formato da parábola nem o valor de <code>c</code> com o eixo vertical.</td>
+        <td>Ao alternar entre <code>x² - 5x + 6 = 0</code> e <code>-x² + 2x + 3 = 0</code>, o aluno vê imediatamente a inversão da concavidade e o ponto roxo <code>(0, c)</code> no Eixo Y.</td>
+      </tr>
+      <tr>
+        <td><strong>Autonomia e Aprendizagem por Experimentação</strong></td>
+        <td>Medo de errar contas longas no papel e falta de feedback imediato durante o estudo individual.</td>
+        <td>Permite que o aluno resolva no caderno e confira cada etapa intermediária (valor de <code>b²</code>, valor de <code>Δ</code>, <code>√Δ</code>, <code>x₁</code>, <code>x₂</code> e vértice).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 Sugestão de Roteiro Prático de Estudo</h3>
+  <div class="card card-emerald">
+    <p style="margin-bottom: 4px;">
+      <strong>Atividade Recomendada (Estudo Ativo):</strong>
+    </p>
+    <p style="font-size: 9.3pt; margin-bottom: 0;">
+      1. Teste inicialmente a equação <code>x^2 - 5x + 6 = 0</code> e observe que as raízes são <code>x₁ = 2</code> e <code>x₂ = 3</code> (com <code>Δ = 1</code> e vértice abaixo do eixo X em <code>yᵥ = -0.25</code>).<br/>
+      2. Em seguida, aumente o termo independente <code>c</code> digitando <code>x^2 - 5x + 6.25 = 0</code>: note como a parábola sobe ligeiramente até que <code>Δ = 0</code> e as duas raízes se fundem em uma única raiz <code>x = 2.5</code>.<br/>
+      3. Por fim, digite <code>x^2 - 5x + 7 = 0</code>: observe que <code>Δ</code> se torna negativo (<code>Δ = -3</code>) e a parábola passa a flutuar inteiramente acima do eixo X, demonstrando visualmente a ausência de raízes reais.
+    </p>
+  </div>
+
+  <!-- QUEBRA DE PÁGINA PARA SEÇÃO 4 -->
+  <div class="page-break"></div>
+
+  <!-- SEÇÃO 4: INFORMAÇÕES TÉCNICAS -->
+  <h2 class="section-title">
+    <span class="section-num">4</span>
+    Informações Técnicas
+  </h2>
+
+  <h3>4.1 Arquitetura Tecnológica (OpenAPI + Java 21 + Node.js 26)</h3>
+  <p>
+    O sistema opera sob o paradigma <strong>API-First</strong>, garantindo desacoplamento, padronização e alta precisão matemática:
+  </p>
+  <div class="grid-3">
+    <div class="card card-accent">
+      <h3>1. Contrato OpenAPI 3.0</h3>
+      <p style="font-size: 9pt;">
+        O arquivo <code>openapi.yaml</code> define o esquema rigoroso de requisição e resposta no endpoint <code>POST /api/v1/equations/solve</code>, padronizando coeficientes, discriminante, raízes, passos didáticos e malha gráfica.
+      </p>
+    </div>
+    <div class="card card-emerald">
+      <h3>2. Motor Backend (Java 21)</h3>
+      <p style="font-size: 9pt;">
+        Construído com <strong>Spring Boot 4</strong>, realiza o <em>parsing</em> sintático da equação, reduz os termos semelhantes, calcula o Δ, aplica Bhaskara, determina o vértice e amostra 121 pontos coordenados.
+      </p>
+    </div>
+    <div class="card card-purple">
+      <h3>3. Interface (Node.js 26)</h3>
+      <p style="font-size: 9pt;">
+        Servidor <strong>Node.js 26</strong> que entrega uma interface responsiva, apresenta os cartões de diagnóstico, a linha do tempo algébrica e desenha o plano cartesiano interativo em HTML5 Canvas.
+      </p>
+    </div>
+  </div>
+
+  <h3>4.2 Fluxo de Processamento Interno</h3>
+  <div class="step-list">
+    <div class="step-box">
+      <div class="step-box-header">
+        <span>Etapa A — Interpretação Algébrica Inteligente (Parser)</span>
+        <span>EquationParserService</span>
+      </div>
+      <p style="font-size: 9.2pt; margin:0;">
+        A aplicação aceita diferentes notações matemáticas naturais: <code>x^2 - 5x + 6 = 0</code>, <code>2x² + 4x - 6 = 0</code>, equações incompletas (<code>2x^2 - 8 = 0</code>) ou com termos em ambos os lados da igualdade (<code>x^2 = 5x - 6</code>). O sistema transpõe automaticamente todos os termos para o membro esquerdo, reduzindo à forma canônica <code>ax² + bx + c = 0</code> e validando se <code>a ≠ 0</code>.
+      </p>
+    </div>
+    <div class="step-box">
+      <div class="step-box-header">
+        <span>Etapa B — Resolução Simbólica e Numérica por Bhaskara</span>
+        <span>BhaskaraSolverService</span>
+      </div>
+      <p style="font-size: 9.2pt; margin:0;">
+        Com os coeficientes <code>a</code>, <code>b</code> e <code>c</code> extraídos, o motor calcula o discriminante <strong>Δ = b² - 4ac</strong>, classifica a natureza das raízes no conjunto dos números reais (ℝ), calcula <strong>x₁</strong> e <strong>x₂</strong> e determina as coordenadas do vértice <strong>V(xᵥ, yᵥ)</strong>.
+      </p>
+    </div>
+    <div class="step-box">
+      <div class="step-box-header">
+        <span>Etapa C — Projeção Geométrica no Plano Cartesiano</span>
+        <span>Canvas 2D Engine</span>
+      </div>
+      <p style="font-size: 9.2pt; margin:0;">
+        O sistema calcula automaticamente uma janela de visualização ótima centrada no eixo de simetria da parábola (<code>xᵥ = -b/2a</code>) que engloba as raízes reais e a interseção com o eixo Y, desenhando a curva contínua e destacando os pontos notáveis.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Manual Técnico e Pedagógico — Resolvedor de Equações do 2º Grau &bull; Stack OpenAPI 3.0 | Java 21 &amp; Spring Boot 4 | Node.js 26
+  </div>
+
+  </div>
+</body>
+</html>

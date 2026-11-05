@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="27" failures="0" errors="0" time="15.469">
+  <testsuite name="Motor Matemático de Fallback e Servidor BFF Node.js" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:15:57" time="4.972" tests="4">
+    <testcase classname="Motor Matemático de Fallback e Servidor BFF Node.js resolve equações com Δ &gt; 0, Δ = 0, Δ &lt; 0, a &lt; 0 e incompletas" name="Motor Matemático de Fallback e Servidor BFF Node.js resolve equações com Δ &gt; 0, Δ = 0, Δ &lt; 0, a &lt; 0 e incompletas" time="0.023">
+    </testcase>
+    <testcase classname="Motor Matemático de Fallback e Servidor BFF Node.js rejeita equações inválidas com códigos padronizados" name="Motor Matemático de Fallback e Servidor BFF Node.js rejeita equações inválidas com códigos padronizados" time="0.146">
+    </testcase>
+    <testcase classname="Motor Matemático de Fallback e Servidor BFF Node.js atende rotas do BFF (/healthz, /readyz, /config.json, OPTIONS, /api/404 e Path Traversal)" name="Motor Matemático de Fallback e Servidor BFF Node.js atende rotas do BFF (/healthz, /readyz, /config.json, OPTIONS, /api/404 e Path Traversal)" time="0.013">
+    </testcase>
+    <testcase classname="Motor Matemático de Fallback e Servidor BFF Node.js processa POST /api/v1/equations/solve com erro de validação retornando ProblemDetails 400" name="Motor Matemático de Fallback e Servidor BFF Node.js processa POST /api/v1/equations/solve com erro de validação retornando ProblemDetails 400" time="0.047">
+    </testcase>
+  </testsuite>
+  <testsuite name="Infraestrutura cliente (src/lib)" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:16:02" time="2.449" tests="5">
+    <testcase classname="Infraestrutura cliente (src/lib) registra logs em buffer e notifica sink configurado" name="Infraestrutura cliente (src/lib) registra logs em buffer e notifica sink configurado" time="0.005">
+    </testcase>
+    <testcase classname="Infraestrutura cliente (src/lib) valida configuração de runtime com Zod e aplica fallback quando inválida" name="Infraestrutura cliente (src/lib) valida configuração de runtime com Zod e aplica fallback quando inválida" time="0.012">
+    </testcase>
+    <testcase classname="Infraestrutura cliente (src/lib) converte payloads diversos em ProblemDetails e resolve mensagens do catálogo" name="Infraestrutura cliente (src/lib) converte payloads diversos em ProblemDetails e resolve mensagens do catálogo" time="0.003">
+    </testcase>
+    <testcase classname="Infraestrutura cliente (src/lib) normaliza AxiosError e Error genérico na camada HTTP" name="Infraestrutura cliente (src/lib) normaliza AxiosError e Error genérico na camada HTTP" time="0.002">
+    </testcase>
+    <testcase classname="Infraestrutura cliente (src/lib) cria QueryClient com opções padrão desabilitando retry em teste/app" name="Infraestrutura cliente (src/lib) cria QueryClient com opções padrão desabilitando retry em teste/app" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Primitivos do Design System (shared/ui)" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:15:57" time="8.151" tests="3">
+    <testcase classname="Primitivos do Design System (shared/ui) renderiza Button nas variantes, bloqueia clique em loading e suporta asChild" name="Primitivos do Design System (shared/ui) renderiza Button nas variantes, bloqueia clique em loading e suporta asChild" time="0.415">
+    </testcase>
+    <testcase classname="Primitivos do Design System (shared/ui) renderiza Input com label, elementos laterais, mensagem de erro e alternância de senha" name="Primitivos do Design System (shared/ui) renderiza Input com label, elementos laterais, mensagem de erro e alternância de senha" time="0.243">
+    </testcase>
+    <testcase classname="Primitivos do Design System (shared/ui) renderiza Card, Alert, Badge e Dialog sem violações de acessibilidade" name="Primitivos do Design System (shared/ui) renderiza Card, Alert, Badge e Dialog sem violações de acessibilidade" time="0.159">
+    </testcase>
+  </testsuite>
+  <testsuite name="Store Zustand de Preferências de UI (useUiPreferencesStore)" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:16:04" time="1.985" tests="2">
+    <testcase classname="Store Zustand de Preferências de UI (useUiPreferencesStore) alterna entre tema claro e escuro sincronizando classe .dark e localStorage" name="Store Zustand de Preferências de UI (useUiPreferencesStore) alterna entre tema claro e escuro sincronizando classe .dark e localStorage" time="0.013">
+    </testcase>
+    <testcase classname="Store Zustand de Preferências de UI (useUiPreferencesStore) controla zoomIn, zoomOut e resetZoom respeitando limites" name="Store Zustand de Preferências de UI (useUiPreferencesStore) controla zoomIn, zoomOut e resetZoom respeitando limites" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Página Principal do Resolvedor (ResolvedorPage)" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:15:56" time="10.379" tests="4">
+    <testcase classname="Página Principal do Resolvedor (ResolvedorPage) renderiza estado inicial, passos de Bhaskara, gráfico e passa na auditoria WCAG 2.1 AA" name="Página Principal do Resolvedor (ResolvedorPage) renderiza estado inicial, passos de Bhaskara, gráfico e passa na auditoria WCAG 2.1 AA" time="0.841">
+    </testcase>
+    <testcase classname="Página Principal do Resolvedor (ResolvedorPage) permite inserir x², clicar em exemplo rápido, calcular Δ = 0 e Δ &lt; 0 e alternar tema" name="Página Principal do Resolvedor (ResolvedorPage) permite inserir x², clicar em exemplo rápido, calcular Δ = 0 e Δ &lt; 0 e alternar tema" time="0.652">
+    </testcase>
+    <testcase classname="Página Principal do Resolvedor (ResolvedorPage) exibe alerta de erro quando a equação é inválida e interage com controles do gráfico" name="Página Principal do Resolvedor (ResolvedorPage) exibe alerta de erro quando a equação é inválida e interage com controles do gráfico" time="0.458">
+    </testcase>
+    <testcase classname="Página Principal do Resolvedor (ResolvedorPage) renderiza ErrorRoute de fallback da rota" name="Página Principal do Resolvedor (ResolvedorPage) renderiza ErrorRoute de fallback da rota" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model)" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:16:05" time="2.277" tests="5">
+    <testcase classname="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) valida entrada do formulário com equacaoFormSchema (aceitação e rejeição)" name="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) valida entrada do formulário com equacaoFormSchema (aceitação e rejeição)" time="0.006">
+    </testcase>
+    <testcase classname="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) valida resposta da API com equacaoResponseSchema" name="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) valida resposta da API com equacaoResponseSchema" time="0.003">
+    </testcase>
+    <testcase classname="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) formata números matemáticos limpando resíduos próximos de zero" name="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) formata números matemáticos limpando resíduos próximos de zero" time="0.002">
+    </testcase>
+    <testcase classname="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) calcula limites de viewport, passos da grade e paleta do Canvas" name="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) calcula limites de viewport, passos da grade e paleta do Canvas" time="0.003">
+    </testcase>
+    <testcase classname="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) desenha o plano cartesiano no contexto 2D para Δ &gt; 0, Δ = 0 e Δ &lt; 0 nos dois temas" name="Modelo, Schemas e Renderizador Cartesiano (features/equacoes/model) desenha o plano cartesiano no contexto 2D para Δ &gt; 0, Δ = 0 e Δ &lt; 0 nos dois temas" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Camada API de Equações (features/equacoes/api)" errors="0" failures="0" skipped="0" timestamp="2026-11-05T20:16:06" time="1.713" tests="4">
+    <testcase classname="Camada API de Equações (features/equacoes/api) gera query keys padronizadas" name="Camada API de Equações (features/equacoes/api) gera query keys padronizadas" time="0.005">
+    </testcase>
+    <testcase classname="Camada API de Equações (features/equacoes/api) envia POST para /api/v1/equations/solve e valida resposta com Zod" name="Camada API de Equações (features/equacoes/api) envia POST para /api/v1/equations/solve e valida resposta com Zod" time="0.005">
+    </testcase>
+    <testcase classname="Camada API de Equações (features/equacoes/api) rejeita com ProblemDetails 502 quando o payload da resposta viola o schema Zod" name="Camada API de Equações (features/equacoes/api) rejeita com ProblemDetails 502 quando o payload da resposta viola o schema Zod" time="0.003">
+    </testcase>
+    <testcase classname="Camada API de Equações (features/equacoes/api) converte erro HTTP 400 do servidor em ProblemDetails tipado" name="Camada API de Equações (features/equacoes/api) converte erro HTTP 400 do servidor em ProblemDetails tipado" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,157 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #374151;
+  --primary: #004b8d;
+  --primary-hover: #003564;
+  --primary-active: #00294e;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-hover: #f9fafb;
+  --secondary-active: #f3f4f6;
+  --secondary-foreground: #374151;
+  --secondary-border: #e5e7eb;
+  --ghost-foreground: #004b8d;
+  --ghost-hover: #e6edf4;
+  --ghost-active: #b0c7dc;
+  --destructive: #fef2f2;
+  --destructive-hover: #fee2e2;
+  --destructive-active: #fecaca;
+  --destructive-foreground: #991b1b;
+  --destructive-border: #fca5a5;
+  --ring: #004b8d;
+  --ring-destructive: #991b1b;
+
+  --radius: 1rem;
+
+  /* Escala nomeada: em :root, nunca em @theme como --spacing-*. --spacing não se redefine. */
+  --space-base: 1rem;
+  --space-sm: calc(var(--space-base) - 10px);
+  --space-md: calc(var(--space-base) - 8px);
+  --space-lg: calc(var(--space-base) - 4px);
+  --space-2xl: calc(var(--space-base) + 4px);
+  --space-3xl: calc(var(--space-base) + 8px);
+  --space-4xl: calc(var(--space-base) + 16px);
+  --space-5xl: calc(var(--space-base) + 24px);
+  --space-6xl: calc(var(--space-base) + 28px);
+  --space-7xl: calc(var(--space-base) + 48px);
+  --space-8xl: calc(var(--space-base) + 64px);
+}
+
+.dark {
+  --background: #0c111d;
+  --foreground: #f5f5f6;
+  --primary: #004b8d;
+  --primary-hover: #336fa4;
+  --primary-active: #004480;
+  --primary-foreground: #ffffff;
+  --secondary: #161b26;
+  --secondary-hover: #1f242f;
+  --secondary-active: #333741;
+  --secondary-foreground: #cecfd2;
+  --secondary-border: #333741;
+  --ghost-foreground: #b0c7dc;
+  --ghost-hover: #1f242f;
+  --ghost-active: #333741;
+  --destructive: #450a0a;
+  --destructive-hover: #7f1d1d;
+  --destructive-active: #991b1b;
+  --destructive-foreground: #fecaca;
+  --destructive-border: #7f1d1d;
+  --ring: #5486b3;
+  --ring-destructive: #f87171;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-active: var(--secondary-active);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-border: var(--secondary-border);
+  --color-ghost-foreground: var(--ghost-foreground);
+  --color-ghost-hover: var(--ghost-hover);
+  --color-ghost-active: var(--ghost-active);
+  --color-destructive: var(--destructive);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-active: var(--destructive-active);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-border: var(--destructive-border);
+  --color-ring: var(--ring);
+  --color-ring-destructive: var(--ring-destructive);
+
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.875rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 2.375rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.75rem;
+
+  --radius-sm: calc(var(--radius) - 14px);
+  --radius-md: calc(var(--radius) - 10px);
+  --radius-lg: calc(var(--radius) - 8px);
+  --radius-xl: calc(var(--radius) - 4px);
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+  }
+}
+
+@utility p-4xl {
+  padding: var(--space-4xl);
+}
+
+@utility px-4xl {
+  padding-inline: var(--space-4xl);
+}
+
+@utility py-3xl {
+  padding-block: var(--space-3xl);
+}
+
+@utility px-lg {
+  padding-inline: var(--space-lg);
+}
+
+@utility gap-lg {
+  gap: var(--space-lg);
+}
+
+@utility gap-2xl {
+  gap: var(--space-2xl);
+}
+
+@utility gap-3xl {
+  gap: var(--space-3xl);
+}
+
