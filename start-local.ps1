@@ -12,13 +12,18 @@ if (Test-Path $Jdk21Path) {
     Write-Host "[OK] JAVA_HOME configurado para $Jdk21Path" -ForegroundColor Green
 }
 
+Write-Host "`n[1/2] Iniciando servidor Backend na porta 8080..." -ForegroundColor Yellow
+Start-Process -FilePath "java" -ArgumentList "-jar", ".\backend\target\equacoes-segundo-grau-api-1.0.0.jar" -NoNewWindow
+
+
 $NodeExe = "C:\Program Files\nodejs\node.exe"
 if (-not (Test-Path $NodeExe)) {
     $NodeExe = "node"
 }
 
-Write-Host "`n[1/2] Iniciando servidor Frontend Node.js na porta 3000..." -ForegroundColor Yellow
+Write-Host "`n[2/2] Iniciando servidor Frontend Node.js na porta 3000..." -ForegroundColor Yellow
 Start-Process -FilePath $NodeExe -ArgumentList "frontend/server.js" -WorkingDirectory $PSScriptRoot
+
 
 Write-Host "[OK] Acesse a aplicacao em: http://localhost:3000" -ForegroundColor Green
 Write-Host "[OK] Contrato OpenAPI disponivel em: http://localhost:3000/openapi.yaml" -ForegroundColor Green
