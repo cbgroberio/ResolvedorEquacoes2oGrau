@@ -1,21 +1,74 @@
 {
   "name": "equacoes-2o-grau-frontend",
-  "version": "1.0.0",
-  "description": "Frontend em Node.js 26 para resolução de equações do 2º grau com Fórmula de Bhaskara e Plano Cartesiano interativo",
+  "version": "2.0.0",
+  "description": "Frontend em Node.js 26 (React 19 SPA + BFF) para resolução de equações do 2º grau com Fórmula de Bhaskara e Plano Cartesiano interativo",
   "main": "server.js",
   "engines": {
     "node": ">=22.0.0 <=26.x"
   },
   "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
     "start": "node server.js",
-    "test": "node --test test/frontend.test.js"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "5.0.1",
+    "@phosphor-icons/react": "2.1.7",
+    "@radix-ui/react-dialog": "1.1.6",
+    "@radix-ui/react-label": "2.1.2",
+    "@radix-ui/react-slot": "1.1.2",
+    "@tanstack/react-query": "5.66.9",
+    "axios": "1.8.1",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-hook-form": "7.55.0",
+    "react-router": "7.2.0",
+    "tailwind-merge": "3.0.2",
+    "zod": "3.24.2",
+    "zustand": "5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.21.0",
+    "@jest/globals": "30.5.2",
+    "@swc/core": "1.16.18",
+    "@swc/jest": "0.2.39",
+    "@tailwindcss/vite": "4.0.9",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.2.0",
+    "@testing-library/user-event": "14.6.1",
+    "@types/node": "22.13.5",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "@vitejs/plugin-react": "4.3.4",
+    "axe-core": "4.10.2",
+    "eslint": "9.21.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "5.1.0",
+    "eslint-plugin-react-refresh": "0.4.19",
+    "globals": "15.15.0",
+    "jest": "30.5.2",
+    "jest-environment-jsdom": "30.5.2",
+    "jest-junit": "16.0.0",
+    "tailwindcss": "4.0.9",
+    "tw-animate-css": "1.2.4",
+    "typescript": "5.7.3",
+    "typescript-eslint": "8.25.0",
+    "vite": "6.2.0"
   },
   "keywords": [
     "bhaskara",
     "equacao-segundo-grau",
     "plano-cartesiano",
     "openapi",
-    "nodejs-26"
+    "nodejs-26",
+    "react-19",
+    "tailwind-4"
   ],
   "license": "MIT"
 }
