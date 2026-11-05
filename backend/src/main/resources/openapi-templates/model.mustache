@@ -1,0 +1,26 @@
+package {{package}};
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+{{#models}}
+{{#model}}
+{{#vars}}
+{{#isArray}}
+import java.util.ArrayList;
+import java.util.List;
+import {{javaxPackage}}.validation.Valid;
+{{/isArray}}
+{{/vars}}
+{{#hasRequired}}
+import {{javaxPackage}}.validation.constraints.*;
+{{/hasRequired}}
+import {{javaxPackage}}.annotation.Generated;
+{{#isEnum}}
+{{>enumOuterClass}}
+{{/isEnum}}
+{{^isEnum}}
+{{#vendorExtensions.x-is-one-of-interface}}{{>oneof_interface}}{{/vendorExtensions.x-is-one-of-interface}}{{^vendorExtensions.x-is-one-of-interface}}{{>pojo}}{{/vendorExtensions.x-is-one-of-interface}}
+{{/isEnum}}
+{{/model}}
+{{/models}}
+
